@@ -47,6 +47,7 @@ class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun setData(giphyDataList: ArrayList<Data?>) {
+        data.clear()
         data.addAll(giphyDataList)
         notifyDataSetChanged()
     }
@@ -54,7 +55,6 @@ class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: Data) {
             itemView.row_text.text = data.title
-
             Glide.with(itemView.context)
                 .load(data.images?.original?.webp)
                 .centerCrop()

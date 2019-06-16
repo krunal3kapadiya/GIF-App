@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @ActivityScoped
 class MainPresenter @Inject constructor() : MainContract.Presenter {
-
     var mMainView: MainContract.View? = null
     var datalist: ArrayList<Data?>? = ArrayList()
 
@@ -28,12 +27,14 @@ class MainPresenter @Inject constructor() : MainContract.Presenter {
 
     override fun apiCallTrendingData(context: Context) {
         val giphyApi: GiphyApi = NetworkService.provideNetworkApi()
+        mMainView?.setLoadingIndicator(true)
         giphyApi.getTrendingPublicApi(BuildConfig.API_KEY)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     mMainView?.setLoadingIndicator(false)
+                    datalist?.clear()
                     for (data in it.data!!) {
                         datalist?.add(data)
                     }
@@ -45,6 +46,31 @@ class MainPresenter @Inject constructor() : MainContract.Presenter {
                 }
             )
     }
+
+    override fun searchQuery(query: String?) {
+        val giphyApi: GiphyApi = NetworkService.provideNetworkApi()
+        query?.let { it ->
+            mMainView?.setLoadingIndicator(true)
+            giphyApi.searchPublicApi(BuildConfig.API_KEY, it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        datalist?.clear()
+                        mMainView?.setLoadingIndicator(false)
+                        for (data in it.data!!) {
+                            datalist?.add(data)
+                        }
+                        datalist?.let { it1 -> mMainView?.loadData(it1) }
+                        mMainView?.setLoadingIndicator(false)
+                    },
+                    {
+                        mMainView?.setLoadingIndicator(false)
+                    }
+                )
+        }
+    }
+
 
     override fun dropView() {
         mMainView = null

@@ -14,4 +14,10 @@ import retrofit2.http.Query
 interface GiphyApi {
     @GET("gifs/trending")
     fun getTrendingPublicApi(@Query("api_key") apiKey: String): Observable<TrendingPublic>
+
+    @GET("gifs/search")
+    fun searchPublicApi(
+        @Query("api_key") apiKey: String,
+        @Query("q") query: String
+    ): Observable<TrendingPublic>
 }

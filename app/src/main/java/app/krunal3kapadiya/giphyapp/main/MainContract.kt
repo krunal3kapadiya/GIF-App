@@ -16,5 +16,6 @@ interface MainContract {
 
     interface Presenter : BasePresenter<View> {
         fun apiCallTrendingData(context: Context)
+        fun searchQuery(query: String?)
     }
 }
