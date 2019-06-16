@@ -9,12 +9,17 @@ import app.krunal3kapadiya.giphyapp.di.ActivityScoped
 import app.krunal3kapadiya.giphyapp.main.adapter.GiphyListAdapter
 import app.krunal3kapadiya.giphyapp.netwwork.responses.Data
 import app.krunal3kapadiya.giphyapp.util.Common
+import app.krunal3kapadiya.giphyapp.viewVideo.VideoViewFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 @ActivityScoped
-class MainActivity : DaggerAppCompatActivity(), MainContract.View, SearchView.OnQueryTextListener {
+class MainActivity : DaggerAppCompatActivity(),
+    MainContract.View,
+    GiphyListAdapter.OnImageClickListener,
+    SearchView.OnQueryTextListener {
+
     @Inject
     lateinit var mainPresenter: MainPresenter
     lateinit var adapter: GiphyListAdapter
@@ -28,7 +33,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View, SearchView.On
             StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         //API Call completed
-        adapter = GiphyListAdapter()
+        adapter = GiphyListAdapter(this)
         main_recycler_view.adapter = adapter
 
         mainPresenter.apiCallTrendingData(this)
@@ -49,6 +54,17 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View, SearchView.On
 
     override fun loadData(giphyDataList: ArrayList<Data?>) {
         adapter.setData(giphyDataList)
+    }
+
+    override fun ImageClickListener(name: String, videoUrl: String) {
+        val ft = supportFragmentManager.beginTransaction()
+        val prev = supportFragmentManager.findFragmentByTag("dialog")
+        if (prev != null) {
+            ft.remove(prev)
+        }
+        ft.addToBackStack(null)
+        val dialogFragment = VideoViewFragment.newInstance(name, videoUrl)
+        dialogFragment.show(ft, "dialog")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

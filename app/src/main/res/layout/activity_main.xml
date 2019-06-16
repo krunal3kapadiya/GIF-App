@@ -18,6 +18,8 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recycler_view"
                 android:layout_width="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

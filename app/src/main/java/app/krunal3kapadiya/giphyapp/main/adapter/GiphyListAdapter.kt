@@ -1,5 +1,6 @@
 package app.krunal3kapadiya.giphyapp.main.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,11 @@ import kotlinx.android.synthetic.main.row_item.view.*
  * @date 14,April,2019
  */
 
-class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GiphyListAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
-
+    private val onImageClickListener: OnImageClickListener = context as OnImageClickListener
     private var data = ArrayList<Data?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -44,6 +46,15 @@ class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder)
             data[position]?.let { holder.bind(it) }
+
+        holder.itemView.setOnClickListener {
+            data[position]?.images?.original?.mp4?.let {
+                onImageClickListener.ImageClickListener(
+                    data[position]?.title.toString(),
+                    it
+                )
+            }
+        }
     }
 
     fun setData(giphyDataList: ArrayList<Data?>) {
@@ -65,5 +76,9 @@ class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //TODO add loading
+    }
+
+    interface OnImageClickListener {
+        fun ImageClickListener(name: String, videoUrl: String)
     }
 }
