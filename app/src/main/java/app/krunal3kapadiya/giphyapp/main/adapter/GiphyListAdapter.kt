@@ -15,9 +15,11 @@ import kotlinx.android.synthetic.main.row_item.view.*
  * @date 14,April,2019
  */
 
-class GiphyListAdapter(private val data: ArrayList<Data?>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GiphyListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
+
+    private var data = ArrayList<Data?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType === VIEW_TYPE_ITEM) {
@@ -42,6 +44,11 @@ class GiphyListAdapter(private val data: ArrayList<Data?>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder)
             data[position]?.let { holder.bind(it) }
+    }
+
+    fun setData(giphyDataList: ArrayList<Data?>) {
+        data.addAll(giphyDataList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

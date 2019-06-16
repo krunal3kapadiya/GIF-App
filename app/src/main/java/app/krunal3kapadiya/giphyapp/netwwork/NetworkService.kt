@@ -14,9 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @link https://krunal3kapadiya.app
  * @date 14,April,2019
  */
-
 object NetworkService {
-    @JvmStatic
     fun provideNetworkApi(): GiphyApi {
         val httpClient = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {

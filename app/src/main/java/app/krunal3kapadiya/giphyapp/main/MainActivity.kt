@@ -3,77 +3,53 @@ package app.krunal3kapadiya.giphyapp.main
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import app.krunal3kapadiya.giphyapp.BuildConfig
 import app.krunal3kapadiya.giphyapp.di.ActivityScoped
 import app.krunal3kapadiya.giphyapp.main.adapter.GiphyListAdapter
-import app.krunal3kapadiya.giphyapp.netwwork.GiphyApi
-import app.krunal3kapadiya.giphyapp.netwwork.NetworkService
 import app.krunal3kapadiya.giphyapp.netwwork.responses.Data
-import app.krunal3kapadiya.giphyapp.util.Common
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 @ActivityScoped
 class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
-    lateinit var datalist: ArrayList<Data?>
+    @Inject
+    lateinit var mainPresenter: MainPresenter
     lateinit var adapter: GiphyListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(app.krunal3kapadiya.giphyapp.R.layout.activity_main)
 
-        datalist = ArrayList()
         main_recycler_view.layoutManager =
             StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         //API Call completed
-        adapter = GiphyListAdapter(datalist)
+        adapter = GiphyListAdapter()
         main_recycler_view.adapter = adapter
-        makeApiCall(datalist, adapter)
+
+        mainPresenter.apiCallTrendingData(this)
+
         swipe_up.setOnRefreshListener {
-            datalist.clear()
-            makeApiCall(datalist, adapter)
+            mainPresenter.apiCallTrendingData(this)
         }
+
+        mainPresenter.takeView(this)
     }
 
-    fun makeApiCall(datalist: ArrayList<Data?>, adapter: GiphyListAdapter) {
 
-        if (Common.isNetworkAvailable(this)) {
-            progress_circular.visibility = View.VISIBLE
-            val giphyApi: GiphyApi = NetworkService.provideNetworkApi()
-
-            giphyApi.getTrendingPublicApi(BuildConfig.API_KEY)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        progress_circular.visibility = View.GONE
-                        for (data in it.data!!) {
-                            datalist.add(data)
-                        }
-                        adapter.notifyDataSetChanged()
-                        setSwipeUpRefreshing()
-                    },
-                    {
-                        setSwipeUpRefreshing()
-                        progress_circular.visibility = View.GONE
-                    }
-                )
-        } else {
-            displayInternetNotAvailable()
-        }
+    override fun setLoadingIndicator(active: Boolean) {
+        progress_circular.visibility = if (active) View.VISIBLE else View.GONE
+        main_recycler_view.visibility = if (active) View.GONE else View.VISIBLE
+        swipe_up.isRefreshing = active
     }
 
-    private fun displayInternetNotAvailable() {
-        internet_not_available.visibility = View.VISIBLE
+    override fun loadData(giphyDataList: ArrayList<Data?>) {
+        adapter.setData(giphyDataList)
     }
 
-    fun setSwipeUpRefreshing() {
-        if (swipe_up.isRefreshing) {
-            swipe_up.isRefreshing = false
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        mainPresenter.dropView()
     }
 }

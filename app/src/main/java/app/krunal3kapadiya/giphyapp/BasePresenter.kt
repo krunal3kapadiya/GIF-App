@@ -7,5 +7,7 @@ package app.krunal3kapadiya.giphyapp
  */
 
 public interface BasePresenter<T> {
+    fun takeView(view: T)
 
+    fun dropView()
 }

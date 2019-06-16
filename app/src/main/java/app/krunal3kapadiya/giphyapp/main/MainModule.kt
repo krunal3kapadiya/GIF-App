@@ -14,5 +14,5 @@ import dagger.Module
 abstract class MainModule {
     @ActivityScoped
     @Binds
-    abstract fun mainPresenter(presenter: MainPresenter): MainContract.Presenter
+    abstract fun mainPreseter(mainPresenter: MainPresenter): MainContract.Presenter
 }
