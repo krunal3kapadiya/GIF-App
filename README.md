@@ -4,4 +4,4 @@
 
 GIPHY Api to display giphy and videos
 
-[![Screenshot](screenshot/screenshot.gif)](screenshot/screenshot.gif)
+[![Screenshot](screenshots/screenshot.gif)](screenshots/screenshot.gif)
