@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        applicationId applicationId
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'BASE_URL', '"https://api.giphy.com/v1/"'
+            buildConfigField("String", "API_KEY", API_KEY)
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"https://api.giphy.com/v1/"'
+            buildConfigField("String", "API_KEY", API_KEY)
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.stdlib
+
+    // android x
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.core
+    implementation deps.androidx.constraint
+    implementation deps.androidx.constraint
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.cardview
+    implementation deps.androidx.materialx
+    // player
+    implementation deps.google.exoplayer
+
+    implementation deps.reactivex.rxAndroid
+    // network libraries
+    implementation deps.network.retrofit
+    implementation deps.network.retrofitAdapter
+    implementation deps.network.gson
+    implementation deps.network.loggingintercepter
+
+    // dagger
+    implementation deps.google.dagger
+    implementation deps.google.daggerAndroid
+    implementation deps.google.daggerSupport
+    kapt deps.google.daggerProcessor
+    kapt deps.google.daggerAndroidProcessor
+
+    // image
+    implementation deps.imageLoader.glide
+    kapt deps.imageLoader.glideProcessor
+
+    // testing libraries
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
