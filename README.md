@@ -18,8 +18,7 @@ Made with :heart: in kotlin
 
 ## Screenshot
 
-[![Screenshot](screenshots/screenshot.gif)](screenshots/screenshot.gif)
-
+<img src="screenshots/screenshot.gif" width="40%" height="40%"/>
 
 ## Questions
 
