@@ -77,15 +77,6 @@ script:
 
   # Add nvm command available to shell
    - source ~/.nvm/nvm.sh
-
-  # Install a lts version of Node
-   - nvm install --lts
-   - npm install -g ionic
-   - npm install -g cordova
-   - cd app
-   - npm ci
-   - ionic cordova platform add android
-   - ionic cordova build android
   
 branches:
   only:
