@@ -2,7 +2,7 @@
 
 ### Summary
 
-GIPHY Api to display giphy in ExoPlayer. This sample used following libraries. Download APK using this [LINK](https://github.com/krunal3kapadiya/GIPHY-App/releases/download/v1.0/GIPHY.App.apk)
+GIPHY Api to display giphy in ExoPlayer. Download APK using this [LINK](https://github.com/krunal3kapadiya/GIPHY-App/releases/download/v1.0/GIPHY.App.apk). This sample used following libraries. 
 
 - [Dagger](https://square.github.io/dagger/)
 - [Retrofit](https://developer.android.com/topic/libraries/support-library/index.html)
