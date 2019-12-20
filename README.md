@@ -1,13 +1,8 @@
-# GIPHY-App
-GIPHY Api to display giphy and videos
+# GIPHY-App [![Build Status](https://travis-ci.org/krunal3kapadiya/GIPHY-App.svg?branch=master)](https://travis-ci.org/krunal3kapadiya/GIPHY-App)
 
-[![Build Status](https://travis-ci.org/krunal3kapadiya/GIPHY-App.svg?branch=master)](https://travis-ci.org/krunal3kapadiya/GIPHY-App)
+### Summary
 
-GIPHY Api to display giphy and videos
-
-Made with :heart: in kotlin
-
-## Used Libraries
+GIPHY Api to display giphy in ExoPlayer. This sample used following libraries. Download APK using this [LINK](https://github.com/krunal3kapadiya/GIPHY-App/releases/download/v1.0/GIPHY.App.apk)
 
 - [Dagger](https://square.github.io/dagger/)
 - [Retrofit](https://developer.android.com/topic/libraries/support-library/index.html)
@@ -24,3 +19,5 @@ Made with :heart: in kotlin
 
 Tweet me at: 
 [![Twitter URL](https://img.shields.io/badge/Twitter-@krunal3kapadiya-blue.svg?style=for-the-badge)](https://twitter.com/krunal3kapadiya)
+
+Made with :heart: in kotlin
