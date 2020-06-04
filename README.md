@@ -4,9 +4,6 @@
 ![RepoSize](https://img.shields.io/github/repo-size/krunal3kapadiya/GIPHY-App)
 ![Languages](https://img.shields.io/github/languages/count/krunal3kapadiya/GIPHY-App)
 [![Twitter](https://img.shields.io/badge/Twitter-%40krunal3kapadiya-blue.svg)](https://twitter.com/krunal3kapadiya)
-[![Medium](https://img.shields.io/badge/Medium-%40krunal3kapadiya-blue.svg)](https://medium.com/@krunal3kapadiya)
-[![Facebook](https://img.shields.io/badge/Facebook-Krunal3kapadiya-blue.svg)](https://www.facebook.com/krunal3kapadiya)
-
 
 ### Summary
 
