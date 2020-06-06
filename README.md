@@ -20,11 +20,6 @@ GIPHY Api to display giphy in ExoPlayer. Download APK using this [LINK](https://
 
 <img src="screenshots/screenshot.gif" width="40%" height="40%"/>
 
-### Questions
-
-Tweet me at: 
-[![Twitter URL](https://img.shields.io/badge/Twitter-@krunal3kapadiya-blue.svg?style=for-the-badge)](https://twitter.com/krunal3kapadiya)
-
 Made with :heart: in kotlin
 
 
